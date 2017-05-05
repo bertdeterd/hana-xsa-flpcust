@@ -1,0 +1,54 @@
+ID: hana-xsa-flpcust
+_schema-version: '2.0'
+version: 0.0.1
+
+modules:
+ - name: flp-hana-xsa-flpcust
+   type: siteentry
+   path: flp
+   parameters:
+      memory: 64M
+   requires:
+    - name: sap-portal-services-host-hana-xsa-flpcust
+    - name: portal-uaa-hana-xsa-flpcust
+    - name: sapui5-provider
+      properties:
+         sapui5url: ~{url}
+
+
+ - name: flp-Content-hana-xsa-flpcust
+   type: sitecontent
+   path: flp-Content
+   parameters:
+      memory: 32M
+   requires:
+    - name: sap-portal-services-client-hana-xsa-flpcust
+    - name: portal-uaa-hana-xsa-flpcust
+
+resources:
+ - name: sap-portal-services-host-hana-xsa-flpcust
+   parameters:
+      config:
+         siteId: hana-xsa-flpcust
+   type: com.sap.portal.site-host
+
+ - name: portal-uaa-hana-xsa-flpcust
+   parameters:
+      service-plan: space
+   type: com.sap.xs.uaa
+
+
+ - name: sapui5-provider
+   parameters:
+      provider-id: com.sap.ui5.dist.sapui5-dist-xsa.XSAC_UI5_FESV3:sapui5_fesv3
+      version: '>=1.42.0'
+      provider-nid: mta
+   type: configuration
+
+
+ - name: sap-portal-services-client-hana-xsa-flpcust
+   parameters:
+      config:
+         siteId: hana-xsa-flpcust
+   type: com.sap.portal.site-content
+
